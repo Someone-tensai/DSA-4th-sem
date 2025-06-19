@@ -83,7 +83,7 @@ void linked_list::display_poly()
 int main()
 {
     linked_list list1;
-    list1.create_linked_list(2,4);
+    list1.insert_poly(2,4);
     list1.insert_poly(3,2);
     list1.insert_poly(0,1);
     list1.insert_poly(2, 3);
@@ -91,7 +91,7 @@ int main()
     list1.display_poly();
 
     linked_list list2;
-    list2.create_linked_list(3,3);
+    list2.insert_poly(3,3);
     list2.insert_poly(5,2);
     list2.insert_poly(1,1);
     list2.display_poly();
