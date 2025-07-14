@@ -42,15 +42,24 @@ public:
 };
 int main()
 {
-    int choice;
+   
     queue qu;
     cout << "Queue \n";
     
     int exit = 0;
+    
     while(!exit)
     {
+        int choice;
         cout << "1.Enqueue\n2.Dequeue\n3.Display\n4.Exit\n\n";
         cin >> choice;
+
+        if(!(cin >> choice))
+        {
+            cout << "Invalid Input.\n";
+            break;
+        }
+        
         switch(choice)
         {
             case 1: 
