@@ -40,6 +40,7 @@ void display(const vector<int> &a)
 
 int main()
 {
+    int b = 0;
     vector<int> a = {5,2,3,8,1,6,7};
     cout << "Array Before Sorting: ";
     display(a);
