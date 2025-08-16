@@ -23,6 +23,7 @@ public:
         return new_node;
     }
 
+    // Insertion in BST
     void insert(int data)
     {
         if(root == nullptr)
@@ -44,14 +45,16 @@ public:
             
         
     }
-    Node* traverse(Node* root, Node* &prev, int data=-1)
+
+    // In-order traversal in BST
+    Node* traverse(Node* root, Node* &prev, int data=-1, int flag=1)
     {
         if(root == nullptr)
         {
             return nullptr;
         }
 
-        Node* left = traverse(root->left_ptr,prev , data);
+        Node* left = traverse(root->left_ptr,prev , data , flag);
         if(left)
         {
             return left;
@@ -62,12 +65,14 @@ public:
             return root;
         }
         prev = root;
-        cout << root->data << "\n";
-        Node* right =  traverse(root->right_ptr, prev,data);
+        if(flag == 1) cout << root->data << " ";
+
+        Node* right =  traverse(root->right_ptr, prev,data, flag);
         return right;
     }
 
-    Node* search(int data, Node* &parent)
+    // Searching in BST
+    Node* search(int data, Node* &parent, int flag=1)
     {
         if(root ==  nullptr) 
         {
@@ -79,7 +84,7 @@ public:
         {
             if(data == ptr->data) 
             {
-                cout << "Node Found\n";
+                if(flag == 1) cout << "Node "<< data << " Found\n";
                 return ptr;
             }
             parent = ptr;
@@ -89,18 +94,20 @@ public:
         }
         if(ptr == nullptr)
         {
-            cout << "Node Not Found\n";
+            cout << "Node " << data <<" Not Found\n";
         }
         return ptr;
     }
-
+    
     Node* inorder_succesor(int data)
     {
         Node* prev = nullptr;
-        Node* successor = traverse(root, prev, data);
+        Node* successor = traverse(root, prev, data, 0);
         return successor;
     }
-    void delete_node(int data)
+
+    // Deleting in BST
+    void delete_node(int data, int flag=1)
     {
         if(root == nullptr)
         {
@@ -108,7 +115,7 @@ public:
             return;
         }
         Node* parent = nullptr;
-        Node* ptr = search(data, parent);
+        Node* ptr = search(data, parent, 0);
         if(ptr == nullptr)
         {
             return;
@@ -135,7 +142,7 @@ public:
             // Replace Node with Inorder Succesor
 
             // Delete the Inorder Succesor
-            delete_node(in_order_data);
+            delete_node(in_order_data,0);
             ptr -> data = in_order_data;
 
         }
@@ -163,6 +170,7 @@ public:
                 delete ptr;
             }
         }
+        if(flag == 1) cout << "Node " << data << " Deleted\n";
     }
 };
 
@@ -174,35 +182,32 @@ int main()
     bst.insert(3);
     bst.insert(4);
     bst.insert(5);
-    bst.insert(7);
     bst.insert(2);
-    bst.insert(1);
-    bst.insert(0);
-    bst.insert(8);
-    bst.insert(9);
     bst.insert(15);
-    bst.insert(13);
-    bst.insert(12);
     bst.insert(11);
     cout << "Insertion Done\n";
 
-    bst.traverse(bst.root, prev);
-    // bst.search(3,parent);
-    // bst.search(7, parent);
-    // bst.search(4,parent);
-  
-    bst.delete_node(5);
-    cout << "Deleted 5\n";
-    bst.delete_node(3);
-    cout << "Deleted 3\n";
-    bst.delete_node(7);
-    cout << "Deleted 7\n";
-    bst.delete_node(15);
-    cout << "Deleted 15\n";
-    bst.delete_node(5);
-    cout << "Deleted 5\n";
     prev = nullptr;
     bst.traverse(bst.root, prev);
+    cout << "\n";
+    bst.search(3,parent);
+    bst.search(7, parent);
+  
+    bst.delete_node(3);
+    prev = nullptr;
+    bst.traverse(bst.root, prev);
+    cout << "\n";
+
+    bst.delete_node(7);
+    prev = nullptr;
+    bst.traverse(bst.root, prev);
+    cout << "\n";
+
+    bst.delete_node(15);
+    prev = nullptr;
+    bst.traverse(bst.root, prev);
+    cout << "\n";
+
     bst.search(3,parent);
 
 }
